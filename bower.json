@@ -1,0 +1,31 @@
+{
+  "name": "apiNG-plugin-github",
+  "homepage": "https://github.com/JohnnyTheTank/apiNG-plugin-github",
+  "authors": [
+    "Jonathan Hornung <jonathan.hornung@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "description": "github plugin for apiNG",
+  "main": "dist/apiNG-plugin-github.min.js",
+  "moduleType": [],
+  "keywords": [
+    "aping",
+    "github",
+    "angularjs",
+    "rest",
+    "api",
+    "json"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "apiNG": "*",
+    "angular-github-api-factory": "*"
+  }
+}
