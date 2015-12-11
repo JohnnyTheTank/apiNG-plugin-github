@@ -107,9 +107,9 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     };
 
     this.getActivityItemByJsonData = function (_item) {
-        var repoObject = apingModels.getNew("activity", this.getThisPlattformString());
+        var activityObject = apingModels.getNew("activity", this.getThisPlattformString());
 
-        $.extend(true, repoObject, {
+        $.extend(true, activityObject, {
             body : false,
 
             actor_name : _item.actor ? _item.actor.login : false, //who?
@@ -118,10 +118,11 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
             actor_img_url : _item.actor ? _item.actor.avatar_url : false,
             actor_type: false,
 
-            action_name : false, //what?
+            //action_name : false,
+            //action_message : false,
             action_id : _item.id,
-            action_url : false,
-            action_img : false,
+            //action_url : false,
+            //action_img : false,
             action_type: _item.type,
 
             object_name : _item.repo ? _item.repo.name : false,
@@ -130,13 +131,58 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
             object_url : _item.repo ? this.getThisPlattformLink()+_item.repo.name : false,
             object_type: _item.repo ? "repository" : false,
 
-            context : false,
+            //context : false,
             timestamp : apingTimeHelper.getTimestampFromDateString(_item.created_at, 1000, 3600*1000),
             date_time: new Date(_item.created_at),
 
         });
 
-        return repoObject;
+        var actionTempObject = this.getActionMessageByTypeAndPayload(_item.type, _item.payload);
+
+        activityObject.action_message = actionTempObject.message;
+        activityObject.action_name = actionTempObject.name;
+        activityObject.action_url = actionTempObject.url;
+
+        return activityObject;
+    };
+
+    this.getActionMessageByTypeAndPayload = function (_type, _payload) {
+
+        var returnObject ={
+            name : false,
+            message : "",
+            url : false,
+        };
+
+        switch(_type) {
+            case "PushEvent":
+
+                returnObject.name = "pushed";
+
+                if(_payload.commits && _payload.commits.constructor === Array) {
+                    angular.forEach(_payload.commits, function (value, key) {
+                        if(returnObject.message === "") {
+                            returnObject.message += value.message;
+                        } else {
+                            returnObject.message += "\n"+value.message;
+                        }
+                    });
+                }
+                break;
+
+            case "PullRequestReviewCommentEvent":
+                returnObject.name = _payload.action + " pull request review comment";
+                returnObject.message = _payload.pull_request.title;
+                returnObject.url = _payload.pull_request.html_url;
+
+                break;
+        }
+
+        if(returnObject.message === "") {
+            returnObject.message = false;
+        }
+
+        return returnObject;
     };
 
 }]);
