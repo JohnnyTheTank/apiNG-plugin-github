@@ -60,6 +60,10 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
                     returnObject = this.getRepoItemByJsonData(_item);
                     break;
 
+                case "activity":
+                    returnObject = this.getActivityItemByJsonData(_item);
+                    break;
+
                 default:
                     return false;
             }
@@ -97,6 +101,39 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
             updated_date_time: _item.updated_at ? new Date(_item.updated_at) : false,
             pushed_timestamp: _item.pushed_at ? apingTimeHelper.getTimestampFromDateString(_item.pushed_at, 1000, 3600*1000) : false,
             pushed_date_time: _item.pushed_at ? new Date(_item.pushed_at) : false,
+        });
+
+        return repoObject;
+    };
+
+    this.getActivityItemByJsonData = function (_item) {
+        var repoObject = apingModels.getNew("activity", this.getThisPlattformString());
+
+        $.extend(true, repoObject, {
+            body : false,
+
+            actor_name : _item.actor ? _item.actor.login : false, //who?
+            actor_id : _item.actor ? _item.actor.id : false,
+            actor_url : _item.actor ? this.getThisPlattformLink()+_item.actor.login : false,
+            actor_img_url : _item.actor ? _item.actor.avatar_url : false,
+            actor_type: false,
+
+            action_name : false, //what?
+            action_id : _item.id,
+            action_url : false,
+            action_img : false,
+            action_type: _item.type,
+
+            object_name : _item.repo ? _item.repo.name : false,
+            object_id : _item.repo ? _item.repo.id : false,
+            object_img : false,
+            object_url : _item.repo ? this.getThisPlattformLink()+_item.repo.name : false,
+            object_type: _item.repo ? "repository" : false,
+
+            context : false,
+            timestamp : apingTimeHelper.getTimestampFromDateString(_item.created_at, 1000, 3600*1000),
+            date_time: new Date(_item.created_at),
+
         });
 
         return repoObject;

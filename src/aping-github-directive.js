@@ -48,6 +48,14 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                                     });
                                 }
                                 break;
+
+                            case "activity":
+                                githubFactory.getEventsByUser(githubSearchObject).success(function(_data){
+                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
+                                }).error(function (_data) {
+                                    //on error
+                                });
+                                break;
                         }
                     } else if(request.search) {
 
