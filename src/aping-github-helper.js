@@ -105,7 +105,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
 
         return repoObject;
     };
-
+    /*
     this.getActivityItemByJsonData = function (_item) {
         var activityObject = apingModels.getNew("activity", this.getThisPlattformString());
 
@@ -184,5 +184,6 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
 
         return returnObject;
     };
+    */
 
 }]);

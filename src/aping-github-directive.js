@@ -80,28 +80,6 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                                 break;
                         }
                     }
-
-
-
-                    /*
-                    githubFactory.getReposByUser({
-                        user:"<USER_NAME>",
-                        q:"<SEARCH_STRING>", // (optional)
-                        sort:"<SORT_STRING>", // (optional) 'stars', 'forks', or 'updated'
-                        order:"<SORT_ORDER>", // (optional) 'desc', 'asc'
-                        per_page:"<ITEMS_PER_PAGE>", // (optional) default: 20
-                        access_token:"<ACCESS_TOKEN>"
-                    }).success(function(_data){
-                        //on success
-                    }).error(function (_data) {
-                        //on error
-                    });
-                    */
-
-
-                    //get _data for each request
-                        // on success:
-                            // apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
                 });
             }
         }
