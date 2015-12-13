@@ -2,7 +2,7 @@
 GitHub Plugin for [apiNG](https://github.com/JohnnyTheTank/apiNG)
 
 ## Promise Library
-used promise library: [angular-facebook-api-factory](https://github.com/JohnnyTheTank/angular-facebook-api-factory)
+used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory)
 
 ## supported apiNG models
 - **`repo`**
