@@ -12,6 +12,7 @@ apingApp.config(['$provide', function ($provide) {
         orderBy : "updated_timestamp",
         orderReverse : "true",
         model: "repo",
+        getNativeData: false
     });
 
 }]);

@@ -20,29 +20,40 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
 
                 requests.forEach(function (request) {
 
-                    var githubSearchObject = {
+                    //create helperObject for helper function call
+                    var helperObject = {
+                        model: appSettings.model,
+                    };
+                    if(typeof appSettings.getNativeData !== "undefined") {
+                        helperObject.getNativeData = appSettings.getNativeData;
+                    } else {
+                        helperObject.getNativeData = false;
+                    }
+
+                    //create requestObject for api request call
+                    var requestObject = {
                         access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlattformString(), "access_token"),
                         per_page: request.items || appSettings.items,
                     };
 
                     if(request.user) {
 
-                        githubSearchObject.user = request.user;
+                        requestObject.user = request.user;
 
                         switch(appSettings.model) {
                             case "repo":
 
                                 if(request.repo) {
-                                    githubSearchObject.repo = request.repo;
+                                    requestObject.repo = request.repo;
 
-                                    githubFactory.getRepoByUserAndName(githubSearchObject).success(function(_data){
-                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
+                                    githubFactory.getRepoByUserAndName(requestObject).success(function(_data){
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     }).error(function (_data) {
                                         //on error
                                     });
                                 } else {
-                                    githubFactory.getReposByUser(githubSearchObject).success(function(_data){
-                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
+                                    githubFactory.getReposByUser(requestObject).success(function(_data){
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     }).error(function (_data) {
                                         //on error
                                     });
@@ -50,8 +61,8 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                                 break;
 
                             case "activity":
-                                githubFactory.getEventsByUser(githubSearchObject).success(function(_data){
-                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
+                                githubFactory.getEventsByUser(requestObject).success(function(_data){
+                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                 }).error(function (_data) {
                                     //on error
                                 });
@@ -59,20 +70,20 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                         }
                     } else if(request.search) {
 
-                        githubSearchObject.q = request.search;
+                        requestObject.q = request.search;
 
                         if(typeof request.sort !== "undefined") {
-                            githubSearchObject.sort = request.sort;
+                            requestObject.sort = request.sort;
                         }
                         if(typeof request.order !== "undefined") {
-                            githubSearchObject.order = request.order;
+                            requestObject.order = request.order;
                         }
 
                         switch(appSettings.model) {
                             case "repo":
 
-                                githubFactory.getReposByName(githubSearchObject).success(function(_data){
-                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, appSettings.model));
+                                githubFactory.getReposByName(requestObject).success(function(_data){
+                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                 }).error(function (_data) {
                                     //on error
                                 });
