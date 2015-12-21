@@ -33,8 +33,27 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                     //create requestObject for api request call
                     var requestObject = {
                         access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlattformString(), "access_token"),
-                        per_page: request.items || appSettings.items,
                     };
+
+                    if(typeof request.items !== "undefined") {
+                        requestObject.per_page = request.items;
+                    } else {
+                        requestObject.per_page = appSettings.items;
+                    }
+
+                    if(requestObject.per_page == 0) {
+                        return false;
+                    }
+
+                    // -1 is "no explicit limit". same for NaN value
+                    if(requestObject.per_page < 0 || isNaN(requestObject.per_page)) {
+                        requestObject.per_page = undefined;
+                    }
+
+                    // the api has a limit of 100 items per request
+                    if(requestObject.per_page > 100) {
+                        requestObject.per_page = 100;
+                    }
 
                     if(request.user) {
 
