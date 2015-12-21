@@ -91,17 +91,17 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
         var repoObject = apingModels.getNew("repo", this.getThisPlattformString());
 
         $.extend(true, repoObject, {
-            owner_name : _item.owner ? _item.owner.login : false,
-            owner_id : _item.owner ? _item.owner.id : false,
-            owner_link : _item.owner ? _item.owner.html_url : false,
-            owner_img_url : _item.owner ? _item.owner.avatar_url : false,
+            owner_name : _item.owner ? _item.owner.login : undefined,
+            owner_id : _item.owner ? _item.owner.id : undefined,
+            owner_link : _item.owner ? _item.owner.html_url : undefined,
+            owner_img_url : _item.owner ? _item.owner.avatar_url : undefined,
             name : _item.name,
             id: _item.id,
             fullname: _item.full_name,
-            description : _item.description || false,
+            description : _item.description || undefined,
             url : _item.html_url,
-            homepage : _item.homepage || false,
-            language : _item.language || false,
+            homepage : _item.homepage || undefined,
+            language : _item.language || undefined,
             clone_url : _item.clone_url,
             git_url : _item.git_url,
             ssh_url : _item.ssh_url,
@@ -113,10 +113,10 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
             forks : _item.forks_count,
             created_timestamp : apingTimeHelper.getTimestampFromDateString(_item.created_at, 1000, 3600*1000),
             created_date_time: new Date(_item.created_at),
-            updated_timestamp: _item.updated_at ? apingTimeHelper.getTimestampFromDateString(_item.updated_at, 1000, 3600*1000) : false,
-            updated_date_time: _item.updated_at ? new Date(_item.updated_at) : false,
-            pushed_timestamp: _item.pushed_at ? apingTimeHelper.getTimestampFromDateString(_item.pushed_at, 1000, 3600*1000) : false,
-            pushed_date_time: _item.pushed_at ? new Date(_item.pushed_at) : false,
+            updated_timestamp: _item.updated_at ? apingTimeHelper.getTimestampFromDateString(_item.updated_at, 1000, 3600*1000) : undefined,
+            updated_date_time: _item.updated_at ? new Date(_item.updated_at) : undefined,
+            pushed_timestamp: _item.pushed_at ? apingTimeHelper.getTimestampFromDateString(_item.pushed_at, 1000, 3600*1000) : undefined,
+            pushed_date_time: _item.pushed_at ? new Date(_item.pushed_at) : undefined,
         });
 
         return repoObject;
@@ -126,28 +126,28 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
         var activityObject = apingModels.getNew("activity", this.getThisPlattformString());
 
         $.extend(true, activityObject, {
-            body : false,
+            body : undefined,
 
-            actor_name : _item.actor ? _item.actor.login : false, //who?
-            actor_id : _item.actor ? _item.actor.id : false,
-            actor_url : _item.actor ? this.getThisPlattformLink()+_item.actor.login : false,
-            actor_img_url : _item.actor ? _item.actor.avatar_url : false,
-            actor_type: false,
+            actor_name : _item.actor ? _item.actor.login : undefined, //who?
+            actor_id : _item.actor ? _item.actor.id : undefined,
+            actor_url : _item.actor ? this.getThisPlattformLink()+_item.actor.login : undefined,
+            actor_img_url : _item.actor ? _item.actor.avatar_url : undefined,
+            actor_type: undefined,
 
-            //action_name : false,
-            //action_message : false,
+            //action_name : undefined,
+            //action_message : undefined,
             action_id : _item.id,
-            //action_url : false,
-            //action_img : false,
+            //action_url : undefined,
+            //action_img : undefined,
             action_type: _item.type,
 
-            object_name : _item.repo ? _item.repo.name : false,
-            object_id : _item.repo ? _item.repo.id : false,
-            object_img : false,
-            object_url : _item.repo ? this.getThisPlattformLink()+_item.repo.name : false,
-            object_type: _item.repo ? "repository" : false,
+            object_name : _item.repo ? _item.repo.name : undefined,
+            object_id : _item.repo ? _item.repo.id : undefined,
+            object_img : undefined,
+            object_url : _item.repo ? this.getThisPlattformLink()+_item.repo.name : undefined,
+            object_type: _item.repo ? "repository" : undefined,
 
-            //context : false,
+            //context : undefined,
             timestamp : apingTimeHelper.getTimestampFromDateString(_item.created_at, 1000, 3600*1000),
             date_time: new Date(_item.created_at),
 
@@ -165,9 +165,9 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     this.getActionMessageByTypeAndPayload = function (_type, _payload) {
 
         var returnObject ={
-            name : false,
+            name : undefined,
             message : "",
-            url : false,
+            url : undefined,
         };
 
         switch(_type) {
@@ -195,7 +195,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
         }
 
         if(returnObject.message === "") {
-            returnObject.message = false;
+            returnObject.message = undefined;
         }
 
         return returnObject;
