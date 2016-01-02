@@ -4,7 +4,7 @@
   "authors": [
     "Jonathan Hornung <jonathan.hornung@gmail.com>"
   ],
-  "version": "0.1.3",
+  "version": "0.6.0",
   "description": "github plugin for apiNG",
   "main": "dist/apiNG-plugin-github.min.js",
   "moduleType": [],

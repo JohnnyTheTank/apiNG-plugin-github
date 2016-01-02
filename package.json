@@ -1,6 +1,6 @@
 {
   "name": "aping-plugin-github",
-  "version": "0.1.3",
+  "version": "0.6.0",
   "description": "github plugin for apiNG",
   "main": "Gruntfile.js",
   "scripts": {
