@@ -106,8 +106,8 @@ Every **apiNG plugin** expects an array of **requests** as html attribute.
 | **`items`**  | `75` | `30` | Items per request (`0`-`100`) |  yes  |
 
 Sample requests:
-* `[{'user':'JohnnyTheTank'}, {'user':'xremix'}]`
-* `[{'user':'JohnnyTheTank', 'repo':'apiNG', 'items':10}]`
+* `[{'user':'JohnnyTheTank'}, {'user':'xremix', 'items':10}]`
+* `[{'user':'JohnnyTheTank', 'repo':'apiNG'}]`
 
 #### Requests by Search
 |  parameter  | sample | default | description | optional |
