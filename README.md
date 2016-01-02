@@ -25,7 +25,7 @@ You can choose your preferred method of installation:
 * Download from github: [apiNG-plugin-github.zip](https://github.com/JohnnyTheTank/apiNG-plugin-github/zipball/master)
 
 ### b) Include files
-Include `apiNG-plugin-github.min.js` in your apiNG application
+Include `aping-plugin-github.min.js` in your apiNG application
 ```html
 <script src="bower_components/apiNG-plugin-github/dist/aping-plugin-github.min.js"></script>
 ```
