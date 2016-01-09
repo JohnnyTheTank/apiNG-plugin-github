@@ -2,7 +2,9 @@
 apingApp.config(['$provide', function ($provide) {
 
     $provide.constant("apingApiKeys", {
-        'github': [{'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}]
+        'github': [
+            {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'},
+        ]
     });
 
     $provide.constant("apingDefaultSettings", {

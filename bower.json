@@ -4,9 +4,9 @@
   "authors": [
     "Jonathan Hornung <jonathan.hornung@gmail.com>"
   ],
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "github plugin for apiNG",
-  "main": "dist/apiNG-plugin-github.min.js",
+  "main": "dist/aping-plugin-github.min.js",
   "moduleType": [],
   "keywords": [
     "aping",
@@ -25,7 +25,6 @@
     "tests"
   ],
   "dependencies": {
-    "apiNG": "*",
-    "angular-github-api-factory": "*"
+    "apiNG": "*"
   }
 }

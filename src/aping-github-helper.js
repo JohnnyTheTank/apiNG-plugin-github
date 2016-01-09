@@ -1,29 +1,23 @@
 "use strict";
 
-/**
- @author Jonathan Hornung (https://github.com/JohnnyTheTank)
- @url https://github.com/JohnnyTheTank/apiNG-plugin-github
- @licence MIT
- */
-
 jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', 'apingUtilityHelper', function (apingModels, apingTimeHelper, apingUtilityHelper) {
     this.getThisPlattformString = function () {
         return "github";
     };
 
-    this.getThisPlattformLink = function () {
+    this.getThisPlatformLink = function () {
         return "https://github.com/";
     };
 
     this.getObjectByJsonData = function (_data, _helperObject) {
         var requestResults = [];
-        if (_data) {
+        if (_data && _data.data) {
 
             var _this = this;
 
-            if(_data.constructor === Array) {
+            if(_data.data.constructor === Array) {
 
-                angular.forEach(_data, function (value, key) {
+                angular.forEach(_data.data, function (value, key) {
                     var tempResult;
                     if(_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
                         tempResult = value;
@@ -36,10 +30,8 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
                 });
             } else {
 
-                var result = [];
-
-                if(_data.items) {
-                    angular.forEach(_data.items, function (value, key) {
+                if(_data.data.items) {
+                    angular.forEach(_data.data.items, function (value, key) {
                         var tempResult;
                         if(_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
                             tempResult = value;
@@ -53,7 +45,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
                 } else {
                     var tempResult;
                     if(_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
-                        tempResult = _data;
+                        tempResult = _data.data;
                     } else {
                         tempResult = _this.getItemByJsonData(_data, _helperObject.model);
                     }
@@ -130,7 +122,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
 
             actor_name : _item.actor ? _item.actor.login : undefined, //who?
             actor_id : _item.actor ? _item.actor.id : undefined,
-            actor_url : _item.actor ? this.getThisPlattformLink()+_item.actor.login : undefined,
+            actor_url : _item.actor ? this.getThisPlatformLink()+_item.actor.login : undefined,
             actor_img_url : _item.actor ? _item.actor.avatar_url : undefined,
             actor_type: undefined,
 
@@ -144,7 +136,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
             object_name : _item.repo ? _item.repo.name : undefined,
             object_id : _item.repo ? _item.repo.id : undefined,
             object_img : undefined,
-            object_url : _item.repo ? this.getThisPlattformLink()+_item.repo.name : undefined,
+            object_url : _item.repo ? this.getThisPlatformLink()+_item.repo.name : undefined,
             object_type: _item.repo ? "repository" : undefined,
 
             //context : undefined,

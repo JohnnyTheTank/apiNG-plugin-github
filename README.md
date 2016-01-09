@@ -5,7 +5,7 @@
 
 # Information
 * **Supported apiNG models: `repo`**
-* Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in minified distribution file)_
+* Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in distribution files)_
 
 # Documentation
     I.   INSTALLATION
@@ -13,21 +13,32 @@
     III. USAGE
 
 ## I. INSTALLATION
-    a) Get files
-    b) Include files
+    a) Get file
+    b) Include file
     c) Add dependencies
     d) Add the plugin
 
-### a) Get files
+### a) Get file
 You can choose your preferred method of installation:
 
-* Via bower: `bower install apiNG-plugin-github --save`
-* Download from github: [apiNG-plugin-github.zip](https://github.com/JohnnyTheTank/apiNG-plugin-github/zipball/master)
+Install via either [bower](http://bower.io/), [npm](https://www.npmjs.com/) or downloaded files:
 
-### b) Include files
+* `bower install apiNG-plugin-github --save`
+* `npm install aping-plugin-github --save`
+* download [apiNG-plugin-github.zip](https://github.com/JohnnyTheTank/apiNG-plugin-github/zipball/master)
+
+### b) Include file
 Include `aping-plugin-github.min.js` in your apiNG application
+
 ```html
+<!-- when using bower -->
 <script src="bower_components/apiNG-plugin-github/dist/aping-plugin-github.min.js"></script>
+
+<!-- when using npm -->
+<script src="node_modules/aping-plugin-github/dist/aping-plugin-github.min.js"></script>
+
+<!-- when using downloaded files -->
+<script src="aping-plugin-github.min.js"></script>
 ```
 
 ### c) Add dependencies

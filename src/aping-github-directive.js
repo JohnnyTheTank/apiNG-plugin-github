@@ -1,11 +1,5 @@
 "use strict";
 
-/**
- @author Jonathan Hornung (https://github.com/JohnnyTheTank)
- @url https://github.com/JohnnyTheTank/apiNG-plugin-github
- @licence MIT
- */
-
 var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
     .directive('apingGithub', ['apingGithubHelper', 'apingUtilityHelper', 'githubFactory', function (apingGithubHelper, apingUtilityHelper, githubFactory) {
         return {
@@ -24,7 +18,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                     var helperObject = {
                         model: appSettings.model,
                     };
-                    if(typeof appSettings.getNativeData !== "undefined") {
+                    if (typeof appSettings.getNativeData !== "undefined") {
                         helperObject.getNativeData = appSettings.getNativeData;
                     } else {
                         helperObject.getNativeData = false;
@@ -35,77 +29,73 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                         access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlattformString(), "access_token"),
                     };
 
-                    if(typeof request.items !== "undefined") {
+                    if (typeof request.items !== "undefined") {
                         requestObject.per_page = request.items;
                     } else {
                         requestObject.per_page = appSettings.items;
                     }
 
-                    if(requestObject.per_page == 0) {
+                    if (requestObject.per_page == 0) {
                         return false;
                     }
 
                     // -1 is "no explicit limit". same for NaN value
-                    if(requestObject.per_page < 0 || isNaN(requestObject.per_page)) {
+                    if (requestObject.per_page < 0 || isNaN(requestObject.per_page)) {
                         requestObject.per_page = undefined;
                     }
 
                     // the api has a limit of 100 items per request
-                    if(requestObject.per_page > 100) {
+                    if (requestObject.per_page > 100) {
                         requestObject.per_page = 100;
                     }
 
-                    if(request.user) {
+                    if (request.user) {
 
                         requestObject.user = request.user;
 
-                        switch(appSettings.model) {
+                        switch (appSettings.model) {
                             case "repo":
 
-                                if(request.repo) {
+                                if (request.repo) {
                                     requestObject.repo = request.repo;
 
-                                    githubFactory.getRepoByUserAndName(requestObject).success(function(_data){
-                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
-                                    }).error(function (_data) {
-                                        //on error
-                                    });
+                                    githubFactory.getRepoByUserAndName(requestObject)
+                                        .then(function (_data) {
+                                            apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                        });
                                 } else {
-                                    githubFactory.getReposByUser(requestObject).success(function(_data){
-                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
-                                    }).error(function (_data) {
-                                        //on error
-                                    });
+                                    githubFactory.getReposByUser(requestObject)
+                                        .then(function (_data) {
+                                            apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                        });
                                 }
                                 break;
 
                             case "activity":
-                                githubFactory.getEventsByUser(requestObject).success(function(_data){
-                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
-                                }).error(function (_data) {
-                                    //on error
-                                });
+                                githubFactory.getEventsByUser(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
                                 break;
                         }
-                    } else if(request.search) {
+                    } else if (request.search) {
 
                         requestObject.q = request.search;
 
-                        if(typeof request.sort !== "undefined") {
+                        if (typeof request.sort !== "undefined") {
                             requestObject.sort = request.sort;
                         }
-                        if(typeof request.order !== "undefined") {
+                        if (typeof request.order !== "undefined") {
                             requestObject.order = request.order;
                         }
 
-                        switch(appSettings.model) {
+                        switch (appSettings.model) {
                             case "repo":
 
-                                githubFactory.getReposByName(requestObject).success(function(_data){
-                                    apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
-                                }).error(function (_data) {
-                                    //on error
-                                });
+                                githubFactory.getReposByName(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
 
                                 break;
                         }
