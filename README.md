@@ -68,7 +68,7 @@ Add the plugin's directive `aping-github="[]"` to your apiNG directive and [conf
 </aping>
 ```
 
-## 2. API KEY
+## 2. ACCESS TOKEN
 
 ### I. Generate your `access_token`
 1. Login on [github.com](https://github.com)
