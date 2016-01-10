@@ -1,7 +1,7 @@
 {
   "name": "aping-plugin-github",
-  "version": "0.7.0",
-  "description": "github plugin for apiNG",
+  "version": "0.7.5",
+  "description": "GitHub plugin for apiNG",
   "main": "dist/aping-plugin-github.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/JohnnyTheTank/apiNG-plugin-github/issues"
   },
-  "homepage": "https://github.com/JohnnyTheTank/apiNG-plugin-github#readme",
+  "homepage": "https://github.com/JohnnyTheTank/apiNG-plugin-github",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
