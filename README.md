@@ -5,29 +5,39 @@
 
 # Information
 * **Supported apiNG models: `repo`**
+* This plugin supports the [`get-native-data` parameter](https://aping.readme.io/docs/configuration#parameters)
+* This plugin needs an [access token](#2-access-token) :warning:
 * Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in distribution files)_
 
 # Documentation
-    I.   INSTALLATION
-    II.  API KEY
-    III. USAGE
 
-## I. INSTALLATION
+1. [INSTALLATION](#1-installation)
+    1. Get file
+    2. Include file
+    3. Add dependencies
+    4. Add plugin
+2. [ACCESS TOKEN](#2-access-token)
+    1. Generate your `access_token`
+    2. Insert your `access_token` into `aping-config.js`
+3. [USAGE](#3-usage)
+    1. Models
+    2. Requests
+    3. Rate limit
+
+## 1. INSTALLATION
     a) Get file
     b) Include file
     c) Add dependencies
     d) Add the plugin
 
-### a) Get file
-You can choose your preferred method of installation:
-
+### I. Get file
 Install via either [bower](http://bower.io/), [npm](https://www.npmjs.com/) or downloaded files:
 
 * `bower install apiNG-plugin-github --save`
 * `npm install aping-plugin-github --save`
 * download [apiNG-plugin-github.zip](https://github.com/JohnnyTheTank/apiNG-plugin-github/zipball/master)
 
-### b) Include file
+### II. Include file
 Include `aping-plugin-github.min.js` in your apiNG application
 
 ```html
@@ -41,14 +51,14 @@ Include `aping-plugin-github.min.js` in your apiNG application
 <script src="aping-plugin-github.min.js"></script>
 ```
 
-### c) Add dependencies
+### III. Add dependencies
 Add the module `jtt_aping_github` as a dependency to your app module:
 ```js
 var app = angular.module('app', ['jtt_aping', 'jtt_aping_github']);
 ```
 
-### d) Add the plugin
-Add the plugin's directive `aping-github="[]"` to your apiNG directive and configure your requests (_**III. USAGE**_)
+### IV. Add the plugin
+Add the plugin's directive `aping-github="[]"` to your apiNG directive and [configure your requests](#ii-requests)
 ```html
 <aping
     template-url="templates/repo.html"
@@ -58,17 +68,15 @@ Add the plugin's directive `aping-github="[]"` to your apiNG directive and confi
 </aping>
 ```
 
-## II. API KEY
-    a) Generate your `access_token`
-    b) Insert your `access_token` into `aping-config.js`
+## 2. API KEY
 
-### a) Generate your `access_token`
+### I. Generate your `access_token`
 1. Login on [github.com](https://github.com)
 2. Open [github.com/settings/tokens/new](https://github.com/settings/tokens/new)
     * Remove all scopes except **public_repo**
     * Generate your access_token
 
-### b) Insert your `access_token` into `aping-config.js`
+### II. Insert your `access_token` into `aping-config.js`
 Open `js/apiNG/aping-config.js` in your application folder. It should be look like this snippet:
 ```js
 apingApp.config(['$provide', function ($provide) {
@@ -88,12 +96,9 @@ apingApp.config(['$provide', function ($provide) {
 
 :warning: Replace `<YOUR_GITHUB_ACCESS_TOKEN>` with your github `access_token`
 
-## III. USAGE
-    a) Models
-    b) Requests
-    c) Rate limit
+## 3. USAGE
 
-### a) Models
+### I. Models
 Supported apiNG models
 
 |  model   | content | support | max items<br>per request | (native) default items<br>per request |
@@ -105,7 +110,7 @@ Supported apiNG models
 * partly: _the source platfrom provides just partly usable results_
 
 
-### b) Requests
+### II. Requests
 Every **apiNG plugin** expects an array of **requests** as html attribute.
 
 
@@ -131,7 +136,7 @@ Sample requests:
 Sample requests:
 * `[{'search':'apiNG', 'sort':'stars', 'order':'desc', 'items':50}]`
 
-### c) Rate limit
+### III. Rate limit
 Visit the official [GitHub Data API documentation](https://developer.github.com/v3/#rate-limiting)
 > For requests using Basic Authentication or OAuth, you can make up to 5,000 requests per hour.
 
