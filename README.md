@@ -77,19 +77,17 @@ Add the plugin's directive `aping-github="[]"` to your apiNG directive and [conf
     * Generate your access_token
 
 ### II. Insert your `access_token` into `aping-config.js`
-Open `js/apiNG/aping-config.js` in your application folder. It should be look like this snippet:
+Create and open `js/apiNG/aping-config.js` in your application folder. It should be look like this snippet:
 ```js
 apingApp.config(['$provide', function ($provide) {
-    $provide.constant("apingApiKeys", {
-        //...
-        github: [
-            {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}
-        ],
-        //...
-    });
-
-    $provide.constant("apingDefaultSettings", {
-        //...
+    $provide.value("apingDefaultSettings", {
+        apingApiKeys : {
+            //...
+            github: [
+                {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}
+            ],
+            //...
+        }
     });
 }]);
 ```

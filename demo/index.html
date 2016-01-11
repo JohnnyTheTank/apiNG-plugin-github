@@ -13,13 +13,13 @@
 </head>
 <body ng-app="app">
     <h1>Repos by User</h1>
-    <aping model="repo" items="40" aping-github="[{'user':'JohnnyTheTank'}]"></aping>
+    <aping template-url="template.html" model="repo" items="40" aping-github="[{'user':'JohnnyTheTank'}]"></aping>
     <hr>
     <h1>Repo by User and Name</h1>
-    <aping model="repo" items="40" aping-github="[{'user':'JohnnyTheTank', 'repo':'apiNG'}]"></aping>
+    <aping template-url="template.html" model="repo" items="40" aping-github="[{'user':'JohnnyTheTank', 'repo':'apiNG'}]"></aping>
     <hr>
     <h1>Repos by Name</h1>
-    <aping model="repo" items="20" aping-github="[{'search':'apiNG', 'sort':'stars', 'order':'desc'}]"></aping>
+    <aping template-url="template.html" model="repo" items="20" aping-github="[{'search':'apiNG', 'sort':'stars', 'order':'desc'}]"></aping>
 
     <!--
     <h1>Activity by User</h1>
