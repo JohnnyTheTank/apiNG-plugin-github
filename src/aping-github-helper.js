@@ -1,7 +1,7 @@
 "use strict";
 
 jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', 'apingUtilityHelper', function (apingModels, apingTimeHelper, apingUtilityHelper) {
-    this.getThisPlattformString = function () {
+    this.getThisPlatformString = function () {
         return "github";
     };
 
@@ -80,7 +80,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     };
 
     this.getRepoItemByJsonData = function (_item) {
-        var repoObject = apingModels.getNew("repo", this.getThisPlattformString());
+        var repoObject = apingModels.getNew("repo", this.getThisPlatformString());
 
         $.extend(true, repoObject, {
             owner_name: _item.owner ? _item.owner.login : undefined,
@@ -115,7 +115,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     };
     /*
      this.getActivityItemByJsonData = function (_item) {
-     var activityObject = apingModels.getNew("activity", this.getThisPlattformString());
+     var activityObject = apingModels.getNew("activity", this.getThisPlatformString());
 
      $.extend(true, activityObject, {
      body : undefined,
@@ -193,5 +193,4 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
      return returnObject;
      };
      */
-
 }]);

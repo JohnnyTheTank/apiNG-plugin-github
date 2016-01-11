@@ -9,7 +9,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
             link: function (scope, element, attrs, apingController) {
 
                 var appSettings = apingController.getAppSettings();
-                var requests = apingUtilityHelper.parseJsonFromAttributes(attrs.apingGithub, apingGithubHelper.getThisPlattformString(), appSettings);
+                var requests = apingUtilityHelper.parseJsonFromAttributes(attrs.apingGithub, apingGithubHelper.getThisPlatformString(), appSettings);
 
                 requests.forEach(function (request) {
 
@@ -25,7 +25,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
 
                     //create requestObject for api request call
                     var requestObject = {
-                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlattformString(), "access_token"),
+                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
                     };
 
                     if (typeof request.items !== "undefined") {
@@ -34,7 +34,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                         requestObject.per_page = appSettings.items;
                     }
 
-                    if (requestObject.count === 0 || requestObject.count === '0') {
+                    if (requestObject.per_page === 0 || requestObject.per_page === '0') {
                         return false;
                     }
 

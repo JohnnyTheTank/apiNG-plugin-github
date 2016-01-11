@@ -1,6 +1,6 @@
 /**
     @name: aping-plugin-github 
-    @version: 0.7.6 (11-01-2016) 
+    @version: 0.7.7 (11-01-2016) 
     @author: Jonathan Hornung 
     @url: https://github.com/JohnnyTheTank/apiNG-plugin-github 
     @license: MIT
@@ -16,7 +16,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
             link: function (scope, element, attrs, apingController) {
 
                 var appSettings = apingController.getAppSettings();
-                var requests = apingUtilityHelper.parseJsonFromAttributes(attrs.apingGithub, apingGithubHelper.getThisPlattformString(), appSettings);
+                var requests = apingUtilityHelper.parseJsonFromAttributes(attrs.apingGithub, apingGithubHelper.getThisPlatformString(), appSettings);
 
                 requests.forEach(function (request) {
 
@@ -32,7 +32,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
 
                     //create requestObject for api request call
                     var requestObject = {
-                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlattformString(), "access_token"),
+                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
                     };
 
                     if (typeof request.items !== "undefined") {
@@ -41,7 +41,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
                         requestObject.per_page = appSettings.items;
                     }
 
-                    if (requestObject.count === 0 || requestObject.count === '0') {
+                    if (requestObject.per_page === 0 || requestObject.per_page === '0') {
                         return false;
                     }
 
@@ -112,7 +112,7 @@ var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
     }]);;"use strict";
 
 jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', 'apingUtilityHelper', function (apingModels, apingTimeHelper, apingUtilityHelper) {
-    this.getThisPlattformString = function () {
+    this.getThisPlatformString = function () {
         return "github";
     };
 
@@ -191,7 +191,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     };
 
     this.getRepoItemByJsonData = function (_item) {
-        var repoObject = apingModels.getNew("repo", this.getThisPlattformString());
+        var repoObject = apingModels.getNew("repo", this.getThisPlatformString());
 
         $.extend(true, repoObject, {
             owner_name: _item.owner ? _item.owner.login : undefined,
@@ -226,7 +226,7 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
     };
     /*
      this.getActivityItemByJsonData = function (_item) {
-     var activityObject = apingModels.getNew("activity", this.getThisPlattformString());
+     var activityObject = apingModels.getNew("activity", this.getThisPlatformString());
 
      $.extend(true, activityObject, {
      body : undefined,
@@ -304,7 +304,6 @@ jjtApingGithub.service('apingGithubHelper', ['apingModels', 'apingTimeHelper', '
      return returnObject;
      };
      */
-
 }]);;"use strict";
 
 angular.module("jtt_github", [])
