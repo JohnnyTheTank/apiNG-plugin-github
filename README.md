@@ -1,11 +1,14 @@
 [logo]: http://aping.io/logo/320/aping-plugin.png "apiNG Plugin"
 ![apiNG][logo]
 
+[![npm version](https://badge.fury.io/js/aping-plugin-github.png)](https://badge.fury.io/js/aping-plugin-github)
+[![Bower version](https://badge.fury.io/bo/apiNG-plugin-github.png)](https://badge.fury.io/bo/apiNG-plugin-github)
+
 **_apiNG-plugin-github_** is a [GitHub Data API v3](https://developer.github.com/v3/) plugin for [**apiNG**](https://github.com/JohnnyTheTank/apiNG).
 
 # Information
 * **Supported apiNG models: `repo`**
-* This plugin supports the [`get-native-data` parameter](https://aping.readme.io/docs/configuration#parameters)
+* This plugin supports the [`get-native-data` parameter](https://aping.readme.io/docs/advanced#parameters)
 * This plugin needs an [access token](#2-access-token) :warning:
 * Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in distribution files)_
 
@@ -14,7 +17,7 @@
 1. [INSTALLATION](#1-installation)
     1. Get file
     2. Include file
-    3. Add dependencies
+    3. Add dependency
     4. Add plugin
 2. [ACCESS TOKEN](#2-access-token)
     1. Generate your `access_token`
@@ -27,7 +30,7 @@
 ## 1. INSTALLATION
     a) Get file
     b) Include file
-    c) Add dependencies
+    c) Add dependency
     d) Add the plugin
 
 ### I. Get file
