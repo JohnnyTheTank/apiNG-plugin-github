@@ -34,10 +34,11 @@
     d) Add the plugin
 
 ### I. Get file
-Install via either [bower](http://bower.io/), [npm](https://www.npmjs.com/) or downloaded files:
+Install via either [bower](http://bower.io/), [npm](https://www.npmjs.com/), CDN (jsDelivr) or downloaded files:
 
 * `bower install apiNG-plugin-github --save`
 * `npm install aping-plugin-github --save`
+* use [CDN file](https://www.jsdelivr.com/projects/aping.plugin-github)
 * download [apiNG-plugin-github.zip](https://github.com/JohnnyTheTank/apiNG-plugin-github/zipball/master)
 
 ### II. Include file
@@ -49,6 +50,9 @@ Include `aping-plugin-github.min.js` in your apiNG application
 
 <!-- when using npm -->
 <script src="node_modules/aping-plugin-github/dist/aping-plugin-github.min.js"></script>
+
+<!-- when using cdn file -->
+<script src="//cdn.jsdelivr.net/aping.plugin-github/latest/aping-plugin-github.min.js"></script>
 
 <!-- when using downloaded files -->
 <script src="aping-plugin-github.min.js"></script>
