@@ -89,7 +89,6 @@ Create and open `js/apiNG/aping-config.js` in your application folder. It should
 apingApp.config(['$provide', function ($provide) {
     $provide.value("apingDefaultSettings", {
         apingApiKeys : {
-            //...
             github: [
                 {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}
             ],
