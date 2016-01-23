@@ -1,6 +1,6 @@
 "use strict";
 
-var jjtApingGithub = angular.module("jtt_aping_github", ['jtt_github'])
+angular.module("jtt_aping_github", ['jtt_github'])
     .directive('apingGithub', ['apingGithubHelper', 'apingUtilityHelper', 'githubFactory', function (apingGithubHelper, apingUtilityHelper, githubFactory) {
         return {
             require: '?aping',
