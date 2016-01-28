@@ -67,11 +67,6 @@ angular.module("jtt_aping_github")
                     case "repo":
                         returnObject = this.getRepoItemByJsonData(_item);
                         break;
-                    /*
-                     case "activity":
-                     returnObject = this.getActivityItemByJsonData(_item);
-                     break;
-                     */
 
                     default:
                         return false;
@@ -83,7 +78,7 @@ angular.module("jtt_aping_github")
         this.getRepoItemByJsonData = function (_item) {
             var repoObject = apingModels.getNew("repo", this.getThisPlatformString());
 
-            $.extend(true, repoObject, {
+            angular.extend(repoObject, {
                 owner_name: _item.owner ? _item.owner.login : undefined,
                 owner_id: _item.owner ? _item.owner.id : undefined,
                 owner_link: _item.owner ? _item.owner.html_url : undefined,
@@ -114,84 +109,4 @@ angular.module("jtt_aping_github")
 
             return repoObject;
         };
-        /*
-         this.getActivityItemByJsonData = function (_item) {
-         var activityObject = apingModels.getNew("activity", this.getThisPlatformString());
-
-         $.extend(true, activityObject, {
-         body : undefined,
-
-         actor_name : _item.actor ? _item.actor.login : undefined, //who?
-         actor_id : _item.actor ? _item.actor.id : undefined,
-         actor_url : _item.actor ? this.getThisPlatformLink()+_item.actor.login : undefined,
-         actor_img_url : _item.actor ? _item.actor.avatar_url : undefined,
-         actor_type: undefined,
-
-         //action_name : undefined,
-         //action_message : undefined,
-         action_id : _item.id,
-         //action_url : undefined,
-         //action_img : undefined,
-         action_type: _item.type,
-
-         object_name : _item.repo ? _item.repo.name : undefined,
-         object_id : _item.repo ? _item.repo.id : undefined,
-         object_img : undefined,
-         object_url : _item.repo ? this.getThisPlatformLink()+_item.repo.name : undefined,
-         object_type: _item.repo ? "repository" : undefined,
-
-         //context : undefined,
-         timestamp : apingTimeHelper.getTimestampFromDateString(_item.created_at, 1000, 3600*1000),
-         date_time: new Date(_item.created_at),
-
-         });
-
-         var actionTempObject = this.getActionMessageByTypeAndPayload(_item.type, _item.payload);
-
-         activityObject.action_message = actionTempObject.message;
-         activityObject.action_name = actionTempObject.name;
-         activityObject.action_url = actionTempObject.url;
-
-         return activityObject;
-         };
-
-         this.getActionMessageByTypeAndPayload = function (_type, _payload) {
-
-         var returnObject ={
-         name : undefined,
-         message : "",
-         url : undefined,
-         };
-
-         switch(_type) {
-         case "PushEvent":
-
-         returnObject.name = "pushed";
-
-         if(_payload.commits && _payload.commits.constructor === Array) {
-         angular.forEach(_payload.commits, function (value, key) {
-         if(returnObject.message === "") {
-         returnObject.message += value.message;
-         } else {
-         returnObject.message += "\n"+value.message;
-         }
-         });
-         }
-         break;
-
-         case "PullRequestReviewCommentEvent":
-         returnObject.name = _payload.action + " pull request review comment";
-         returnObject.message = _payload.pull_request.title;
-         returnObject.url = _payload.pull_request.html_url;
-
-         break;
-         }
-
-         if(returnObject.message === "") {
-         returnObject.message = undefined;
-         }
-
-         return returnObject;
-         };
-         */
     }]);
