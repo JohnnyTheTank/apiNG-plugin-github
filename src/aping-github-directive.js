@@ -17,7 +17,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     var helperObject = {
                         model: appSettings.model,
                     };
-                    if (typeof appSettings.getNativeData !== "undefined") {
+                    if (angular.isDefined(appSettings.getNativeData)) {
                         helperObject.getNativeData = appSettings.getNativeData;
                     } else {
                         helperObject.getNativeData = false;
@@ -28,7 +28,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                         access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
                     };
 
-                    if (typeof request.items !== "undefined") {
+                    if (angular.isDefined(request.items)) {
                         requestObject.per_page = request.items;
                     } else {
                         requestObject.per_page = appSettings.items;
@@ -81,10 +81,10 @@ angular.module("jtt_aping_github", ['jtt_github'])
 
                         requestObject.q = request.search;
 
-                        if (typeof request.sort !== "undefined") {
+                        if (angular.isDefined(request.sort)) {
                             requestObject.sort = request.sort;
                         }
-                        if (typeof request.order !== "undefined") {
+                        if (angular.isDefined(request.order)) {
                             requestObject.order = request.order;
                         }
 
