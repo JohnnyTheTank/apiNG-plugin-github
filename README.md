@@ -1,6 +1,7 @@
 [logo]: http://aping.io/logo/320/aping-plugin.png "apiNG Plugin"
 ![apiNG][logo]
 
+[![Join the chat at https://gitter.im/JohnnyTheTank/apiNG](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/JohnnyTheTank/apiNG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![npm version](https://badge.fury.io/js/aping-plugin-github.png)](https://badge.fury.io/js/aping-plugin-github)
 [![Bower version](https://badge.fury.io/bo/apiNG-plugin-github.png)](https://badge.fury.io/bo/apiNG-plugin-github)
 
