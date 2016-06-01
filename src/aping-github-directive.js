@@ -24,9 +24,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
 
                     //create requestObject for api request call
-                    var requestObject = {
-                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
-                    };
+                    var requestObject = {};
 
                     if (angular.isDefined(request.items)) {
                         requestObject.per_page = request.items;

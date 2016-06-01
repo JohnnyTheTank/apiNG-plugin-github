@@ -1,6 +1,6 @@
 /**
     @name: aping-plugin-github 
-    @version: 0.7.8 (03-02-2016) 
+    @version: 0.7.9 (01-06-2016) 
     @author: Jonathan Hornung 
     @url: https://github.com/JohnnyTheTank/apiNG-plugin-github 
     @license: MIT
@@ -31,9 +31,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
 
                     //create requestObject for api request call
-                    var requestObject = {
-                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
-                    };
+                    var requestObject = {};
 
                     if (angular.isDefined(request.items)) {
                         requestObject.per_page = request.items;
@@ -128,7 +126,6 @@ angular.module("jtt_aping_github")
                 var _this = this;
 
                 if (_data.data.constructor === Array) {
-
                     angular.forEach(_data.data, function (value, key) {
                         var tempResult;
                         if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
@@ -141,7 +138,6 @@ angular.module("jtt_aping_github")
                         }
                     });
                 } else {
-
                     if (_data.data.items) {
                         angular.forEach(_data.data.items, function (value, key) {
                             var tempResult;
@@ -159,7 +155,7 @@ angular.module("jtt_aping_github")
                         if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
                             tempResult = _data.data;
                         } else {
-                            tempResult = _this.getItemByJsonData(_data, _helperObject.model);
+                            tempResult = _this.getItemByJsonData(_data.data, _helperObject.model);
                         }
                         if (tempResult) {
                             requestResults.push(tempResult);
@@ -291,7 +287,7 @@ angular.module("jtt_github", [])
         this.fillDataInObjectByList = function (_object, _params, _list) {
 
             angular.forEach(_list, function (value, key) {
-                if (typeof _params[value] !== "undefined") {
+                if (angular.isDefined(_params[value])) {
                     _object.object[value] = _params[value];
                 }
             });
@@ -301,14 +297,16 @@ angular.module("jtt_github", [])
 
         this.getNew = function (_type, _params) {
             var githubSearchData = {
-                object: {
-                    access_token: _params.access_token,
-                },
+                object: {},
                 url: "",
             };
 
-            if (typeof _params.per_page !== "undefined") {
+            if (angular.isDefined(_params.per_page)) {
                 githubSearchData.object.per_page = _params.per_page;
+            }
+
+            if (angular.isDefined(_params.access_token)) {
+                githubSearchData.object.access_token = _params.access_token;
             }
 
             switch (_type) {
@@ -356,7 +354,6 @@ angular.module("jtt_github", [])
                     githubSearchData.url = this.getApiBaseUrl() + "repos/" + _params.user + "/" + _params.repo + "/events";
                     break;
             }
-
             return githubSearchData;
         };
     });

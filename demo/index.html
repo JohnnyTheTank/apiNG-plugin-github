@@ -11,23 +11,32 @@
     <script src="../dist/aping-plugin-github.js"></script>
 </head>
 <body ng-app="app">
+
     <h1>Repos by User</h1>
-    <aping template-url="template.html" model="repo" items="40" aping-github="[{'user':'JohnnyTheTank'}]"></aping>
+    <aping template-url="template.html"
+           model="repo"
+           items="40"
+           order-by="updated_timestamp"
+           order-reverse="true"
+           aping-github="[{'user':'JohnnyTheTank'}]">
+    </aping>
+
     <hr>
     <h1>Repo by User and Name</h1>
-    <aping template-url="template.html" model="repo" items="40" aping-github="[{'user':'JohnnyTheTank', 'repo':'apiNG'}]"></aping>
-    <hr>
-    <h1>Repos by Name</h1>
-    <aping template-url="template.html" model="repo" items="20" aping-github="[{'search':'apiNG', 'sort':'stars', 'order':'desc'}]"></aping>
-
-    <!--
-    <h1>Activity by User</h1>
-    <aping
-            model="activity"
-            items="40"
-            aping-github="[{'user':'passy'}]">
+    <aping template-url="template.html"
+           model="repo"
+           items="40"
+           aping-github="[{'user':'JohnnyTheTank', 'repo':'apiNG'}]">
     </aping>
     <hr>
-    -->
+
+    <h1>Repos by Name</h1>
+    <aping template-url="template.html"
+           model="repo"
+           items="20"
+           order-by="updated_timestamp"
+           order-reverse="true"
+           aping-github="[{'search':'apiNG', 'sort':'stars', 'order':'desc'}]">
+    </aping>
 </body>
 </html>

@@ -10,7 +10,6 @@
 # Information
 * **Supported apiNG models: `repo`**
 * This plugin supports the [`get-native-data` parameter](https://aping.readme.io/docs/advanced#parameters)
-* This plugin needs an [access token](#2-access-token) :warning:
 * Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in distribution files)_
 
 # Documentation
@@ -20,10 +19,7 @@
     2. Include file
     3. Add dependency
     4. Add plugin
-2. [ACCESS TOKEN](#2-access-token)
-    1. Generate your `access_token`
-    2. Insert your `access_token` into `aping-config.js`
-3. [USAGE](#3-usage)
+2. [USAGE](#3-usage)
     1. Models
     2. Requests
     3. Rate limit
@@ -76,32 +72,7 @@ Add the plugin's directive `aping-github="[]"` to your apiNG directive and [conf
 </aping>
 ```
 
-## 2. ACCESS TOKEN
-
-### I. Generate your `access_token`
-1. Login on [github.com](https://github.com)
-2. Open [github.com/settings/tokens/new](https://github.com/settings/tokens/new)
-    * Remove all scopes except **public_repo**
-    * Generate your access_token
-
-### II. Insert your `access_token` into `aping-config.js`
-Create and open `js/apiNG/aping-config.js` in your application folder. It should be look like this snippet:
-```js
-angular.module('jtt_aping').config(['$provide', function ($provide) {
-    $provide.value("apingDefaultSettings", {
-        apingApiKeys : {
-            github: [
-                {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}
-            ],
-            //...
-        }
-    });
-}]);
-```
-
-:warning: Replace `<YOUR_GITHUB_ACCESS_TOKEN>` with your github `access_token`
-
-## 3. USAGE
+## 2. USAGE
 
 ### I. Models
 Supported apiNG models

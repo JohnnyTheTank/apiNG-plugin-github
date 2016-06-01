@@ -17,7 +17,6 @@ angular.module("jtt_aping_github")
                 var _this = this;
 
                 if (_data.data.constructor === Array) {
-
                     angular.forEach(_data.data, function (value, key) {
                         var tempResult;
                         if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
@@ -30,7 +29,6 @@ angular.module("jtt_aping_github")
                         }
                     });
                 } else {
-
                     if (_data.data.items) {
                         angular.forEach(_data.data.items, function (value, key) {
                             var tempResult;
@@ -48,7 +46,7 @@ angular.module("jtt_aping_github")
                         if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
                             tempResult = _data.data;
                         } else {
-                            tempResult = _this.getItemByJsonData(_data, _helperObject.model);
+                            tempResult = _this.getItemByJsonData(_data.data, _helperObject.model);
                         }
                         if (tempResult) {
                             requestResults.push(tempResult);
