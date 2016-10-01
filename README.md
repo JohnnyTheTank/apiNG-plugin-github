@@ -2,8 +2,8 @@
 ![apiNG][logo]
 
 [![Join the chat at https://gitter.im/JohnnyTheTank/apiNG](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/JohnnyTheTank/apiNG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![npm version](https://badge.fury.io/js/aping-plugin-github.png)](https://badge.fury.io/js/aping-plugin-github)
-[![Bower version](https://badge.fury.io/bo/apiNG-plugin-github.png)](https://badge.fury.io/bo/apiNG-plugin-github)
+[![npm version](https://badge.fury.io/js/aping-plugin-github.svg)](https://badge.fury.io/js/aping-plugin-github)
+[![Bower version](https://badge.fury.io/bo/apiNG-plugin-github.svg)](https://badge.fury.io/bo/apiNG-plugin-github)
 
 **_apiNG-plugin-github_** is a [GitHub Data API v3](https://developer.github.com/v3/) plugin for [**apiNG**](https://github.com/JohnnyTheTank/apiNG).
 
