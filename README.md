@@ -49,7 +49,7 @@ Include `aping-plugin-github.min.js` in your apiNG application
 <script src="node_modules/aping-plugin-github/dist/aping-plugin-github.min.js"></script>
 
 <!-- when using cdn file -->
-<script src="//cdn.jsdelivr.net/aping.plugin-github/latest/aping-plugin-github.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/aping-plugin-github@latest/dist/aping-plugin-github.min.js"></script>
 
 <!-- when using downloaded files -->
 <script src="aping-plugin-github.min.js"></script>
