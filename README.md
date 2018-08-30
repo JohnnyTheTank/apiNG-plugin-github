@@ -79,11 +79,11 @@ Supported apiNG models
 
 |  model   | content | support | max items<br>per request | (native) default items<br>per request |
 |----------|---------|---------|--------|---------|
-| `rep` | **repositories** | full    | `100`   | `30`   |
+| `repo` | **repositories** | full    | `100`   | `30`   |
 
 **support:**
 * full: _the source platform provides a full list with usable results_ <br>
-* partly: _the source platfrom provides just partly usable results_
+* partly: _the source platform provides just partly usable results_
 
 
 ### II. Requests
