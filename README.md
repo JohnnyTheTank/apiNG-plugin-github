@@ -1,4 +1,4 @@
-[logo]: http://aping.io/logo/320/aping-plugin.png "apiNG Plugin"
+[logo]: https://camo.githubusercontent.com/4bf6757723e08f87dec92ac931514d1e234b7ed3/687474703a2f2f6a6f686e6e7974686574616e6b2e6769746875622e696f2f6170694e472f6c6f676f2f3332302f6170696e672d6c6f676f2e706e67 "apiNG Plugin"
 ![apiNG][logo]
 
 [![Join the chat at https://gitter.im/JohnnyTheTank/apiNG](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/JohnnyTheTank/apiNG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
