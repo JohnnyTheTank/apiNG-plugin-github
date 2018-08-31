@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github Demo</title>
+
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/apiNG/dist/aping.min.js"></script>
+    <script src="app.js"></script>
+    <script src="../dist/aping-plugin-github.js"></script>
+</head>
+<body ng-app="app">
+
+<h1>Users by name</h1>
+<aping
+        model="user"
+        items="40"
+        result-name="outerResults"
+        aping-github="[{'search':'miriam'}]">
+
+    <div ng-repeat="outerItem in outerResults">
+        <aping
+                model="user"
+                items="40"
+                aping-github="[{'user':'{{outerItem.username}}'}]">
+            <ul>
+                <li ng-repeat="item in results">
+                    <pre>{{item.username | json}}</pre>
+                    <pre>{{item.fullname | json}}</pre>
+                </li>
+            </ul>
+        </aping>
+
+    </div>
+
+</aping>
+
+</body>
+</html>
