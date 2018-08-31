@@ -1,6 +1,6 @@
 /**
     @name: aping-plugin-github 
-    @version: 0.7.9 (31-08-2018) 
+    @version: 0.8.0 (31-08-2018) 
     @author: Jonathan Hornung 
     @url: https://github.com/JohnnyTheTank/apiNG-plugin-github 
     @license: MIT
@@ -32,7 +32,7 @@ angular.module('jtt_aping_github', ['jtt_github'])
 
                     //create requestObject for api request call
                     var requestObject = {
-                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), "access_token"),
+                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), 'access_token') || undefined,
                     };
 
                     if (angular.isDefined(request.items)) {

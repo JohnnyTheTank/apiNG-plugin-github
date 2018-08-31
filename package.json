@@ -1,6 +1,6 @@
 {
   "name": "aping-plugin-github",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "GitHub plugin for apiNG",
   "main": "dist/aping-plugin-github.min.js",
   "scripts": {
