@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-angular.module("jtt_aping_github", ['jtt_github'])
+angular.module('jtt_aping_github', ['jtt_github'])
     .directive('apingGithub', ['apingGithubHelper', 'apingUtilityHelper', 'githubFactory', function (apingGithubHelper, apingUtilityHelper, githubFactory) {
         return {
             require: '?aping',
@@ -24,7 +24,9 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
 
                     //create requestObject for api request call
-                    var requestObject = {};
+                    var requestObject = {
+                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), 'access_token') || undefined,
+                    };
 
                     if (angular.isDefined(request.items)) {
                         requestObject.per_page = request.items;
@@ -51,7 +53,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                         requestObject.user = request.user;
 
                         switch (appSettings.model) {
-                            case "repo":
+                            case 'repo':
 
                                 if (request.repo) {
                                     requestObject.repo = request.repo;
@@ -68,11 +70,19 @@ angular.module("jtt_aping_github", ['jtt_github'])
                                 }
                                 break;
 
-                            case "activity":
+                            case 'activity':
                                 githubFactory.getEventsByUser(requestObject)
                                     .then(function (_data) {
                                         apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     });
+                                break;
+
+                            case 'user':
+                                githubFactory.getUser(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
+
                                 break;
                         }
                     } else if (request.search) {
@@ -87,9 +97,17 @@ angular.module("jtt_aping_github", ['jtt_github'])
                         }
 
                         switch (appSettings.model) {
-                            case "repo":
+                            case 'repo':
 
                                 githubFactory.getReposByName(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
+
+                                break;
+
+                            case 'user':
+                                githubFactory.getUsers(requestObject)
                                     .then(function (_data) {
                                         apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     });
@@ -99,5 +117,5 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
                 });
             }
-        }
+        };
     }]);

@@ -10,6 +10,7 @@
 # Information
 * **Supported apiNG models: `repo`**
 * This plugin supports the [`get-native-data` parameter](https://aping.readme.io/docs/advanced#parameters)
+* This plugin may needs an [access token](#2-access-token) :warning:
 * Used promise library: [angular-github-api-factory](https://github.com/JohnnyTheTank/angular-github-api-factory) _(included in distribution files)_
 
 # Documentation
@@ -19,7 +20,10 @@
     2. Include file
     3. Add dependency
     4. Add plugin
-2. [USAGE](#3-usage)
+2. [ACCESS TOKEN](#2-access-token)
+    1. Generate your `access_token`
+    2. Insert your `access_token` into `aping-config.js`
+3. [USAGE](#3-usage)
     1. Models
     2. Requests
     3. Rate limit
@@ -72,7 +76,32 @@ Add the plugin's directive `aping-github="[]"` to your apiNG directive and [conf
 </aping>
 ```
 
-## 2. USAGE
+## 2. ACCESS TOKEN
+
+### I. Generate your `access_token`
+1. Login on [github.com](https://github.com)
+2. Open [github.com/settings/tokens/new](https://github.com/settings/tokens/new)
+    * Remove all scopes except **public_repo**
+    * Generate your access_token
+
+### II. Insert your `access_token` into `aping-config.js`
+Create and open `js/apiNG/aping-config.js` in your application folder. It should be look like this snippet:
+```js
+angular.module('jtt_aping').config(['$provide', function ($provide) {
+    $provide.value("apingDefaultSettings", {
+        apingApiKeys : {
+            github: [
+                {'access_token':'<YOUR_GITHUB_ACCESS_TOKEN>'}
+            ],
+            //...
+        }
+    });
+}]);
+```
+
+:warning: Replace `<YOUR_GITHUB_ACCESS_TOKEN>` with your github `access_token`
+
+## 3. USAGE
 
 ### I. Models
 Supported apiNG models
@@ -80,6 +109,7 @@ Supported apiNG models
 |  model   | content | support | max items<br>per request | (native) default items<br>per request |
 |----------|---------|---------|--------|---------|
 | `repo` | **repositories** | full    | `100`   | `30`   |
+| `user` | **users** | full    | `100`   | `30`   |
 
 **support:**
 * full: _the source platform provides a full list with usable results_ <br>
@@ -100,6 +130,7 @@ Every **apiNG plugin** expects an array of **requests** as html attribute.
 Sample requests:
 * `[{'user':'JohnnyTheTank'}, {'user':'xremix', 'items':10}]`
 * `[{'user':'JohnnyTheTank', 'repo':'apiNG'}]`
+* `[{'user':'JohnnyTheTank'}]`
 
 #### Requests by Search
 |  parameter  | sample | default | description | optional |
@@ -111,6 +142,7 @@ Sample requests:
 
 Sample requests:
 * `[{'search':'apiNG', 'sort':'stars', 'order':'desc', 'items':50}]`
+* `[{'search':'JohnnyTheTank', 'items':10}]`
 
 ### III. Rate limit
 Visit the official [GitHub Data API documentation](https://developer.github.com/v3/#rate-limiting)

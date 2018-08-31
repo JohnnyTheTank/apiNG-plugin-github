@@ -8,8 +8,25 @@
     <script src="../bower_components/apiNG/dist/aping.min.js"></script>
     <script src="app.js"></script>
     <script src="../dist/aping-plugin-github.js"></script>
+    <script src="aping-config.js"></script>
 </head>
 <body ng-app="app">
+
+    <h1>User by name</h1>
+    <aping template-url="template.html"
+           model="user"
+           items="40"
+           aping-github="[{'user':'JohnnyTheTank'}]">
+    </aping>
+
+    <hr>
+
+    <h1>Users by name</h1>
+    <aping template-url="template.html"
+           model="user"
+           items="40"
+           aping-github="[{'search':'miriam'}]">
+    </aping>
 
     <h1>Repos by User</h1>
     <aping template-url="template.html"
@@ -37,5 +54,6 @@
            order-reverse="true"
            aping-github="[{'search':'apiNG', 'sort':'stars', 'order':'desc'}]">
     </aping>
+    -->
 </body>
 </html>

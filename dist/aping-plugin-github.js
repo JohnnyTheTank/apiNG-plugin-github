@@ -1,13 +1,13 @@
 /**
     @name: aping-plugin-github 
-    @version: 0.7.9 (01-06-2016) 
+    @version: 0.8.0 (31-08-2018) 
     @author: Jonathan Hornung 
     @url: https://github.com/JohnnyTheTank/apiNG-plugin-github 
     @license: MIT
 */
-"use strict";
+'use strict';
 
-angular.module("jtt_aping_github", ['jtt_github'])
+angular.module('jtt_aping_github', ['jtt_github'])
     .directive('apingGithub', ['apingGithubHelper', 'apingUtilityHelper', 'githubFactory', function (apingGithubHelper, apingUtilityHelper, githubFactory) {
         return {
             require: '?aping',
@@ -31,7 +31,9 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
 
                     //create requestObject for api request call
-                    var requestObject = {};
+                    var requestObject = {
+                        access_token: apingUtilityHelper.getApiCredentials(apingGithubHelper.getThisPlatformString(), 'access_token') || undefined,
+                    };
 
                     if (angular.isDefined(request.items)) {
                         requestObject.per_page = request.items;
@@ -58,7 +60,7 @@ angular.module("jtt_aping_github", ['jtt_github'])
                         requestObject.user = request.user;
 
                         switch (appSettings.model) {
-                            case "repo":
+                            case 'repo':
 
                                 if (request.repo) {
                                     requestObject.repo = request.repo;
@@ -75,11 +77,19 @@ angular.module("jtt_aping_github", ['jtt_github'])
                                 }
                                 break;
 
-                            case "activity":
+                            case 'activity':
                                 githubFactory.getEventsByUser(requestObject)
                                     .then(function (_data) {
                                         apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     });
+                                break;
+
+                            case 'user':
+                                githubFactory.getUser(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
+
                                 break;
                         }
                     } else if (request.search) {
@@ -94,9 +104,17 @@ angular.module("jtt_aping_github", ['jtt_github'])
                         }
 
                         switch (appSettings.model) {
-                            case "repo":
+                            case 'repo':
 
                                 githubFactory.getReposByName(requestObject)
+                                    .then(function (_data) {
+                                        apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
+                                    });
+
+                                break;
+
+                            case 'user':
+                                githubFactory.getUsers(requestObject)
                                     .then(function (_data) {
                                         apingController.concatToResults(apingGithubHelper.getObjectByJsonData(_data, helperObject));
                                     });
@@ -106,17 +124,17 @@ angular.module("jtt_aping_github", ['jtt_github'])
                     }
                 });
             }
-        }
-    }]);;"use strict";
+        };
+    }]);;'use strict';
 
-angular.module("jtt_aping_github")
+angular.module('jtt_aping_github')
     .service('apingGithubHelper', ['apingModels', 'apingTimeHelper', 'apingUtilityHelper', function (apingModels, apingTimeHelper, apingUtilityHelper) {
         this.getThisPlatformString = function () {
-            return "github";
+            return 'github';
         };
 
         this.getThisPlatformLink = function () {
-            return "https://github.com/";
+            return 'https://github.com/';
         };
 
         this.getObjectByJsonData = function (_data, _helperObject) {
@@ -128,7 +146,7 @@ angular.module("jtt_aping_github")
                 if (_data.data.constructor === Array) {
                     angular.forEach(_data.data, function (value, key) {
                         var tempResult;
-                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                             tempResult = value;
                         } else {
                             tempResult = _this.getItemByJsonData(value, _helperObject.model);
@@ -141,7 +159,7 @@ angular.module("jtt_aping_github")
                     if (_data.data.items) {
                         angular.forEach(_data.data.items, function (value, key) {
                             var tempResult;
-                            if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                            if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                                 tempResult = value;
                             } else {
                                 tempResult = _this.getItemByJsonData(value, _helperObject.model);
@@ -152,7 +170,7 @@ angular.module("jtt_aping_github")
                         });
                     } else {
                         var tempResult;
-                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                             tempResult = _data.data;
                         } else {
                             tempResult = _this.getItemByJsonData(_data.data, _helperObject.model);
@@ -171,8 +189,12 @@ angular.module("jtt_aping_github")
             var returnObject = {};
             if (_item && _model) {
                 switch (_model) {
-                    case "repo":
+                    case 'repo':
                         returnObject = this.getRepoItemByJsonData(_item);
+                        break;
+
+                    case 'user':
+                        returnObject = this.getUserItemByJsonData(_item);
                         break;
 
                     default:
@@ -183,7 +205,7 @@ angular.module("jtt_aping_github")
         };
 
         this.getRepoItemByJsonData = function (_item) {
-            var repoObject = apingModels.getNew("repo", this.getThisPlatformString());
+            var repoObject = apingModels.getNew('repo', this.getThisPlatformString());
 
             angular.extend(repoObject, {
                 owner_name: _item.owner ? _item.owner.login : undefined,
@@ -216,15 +238,56 @@ angular.module("jtt_aping_github")
 
             return repoObject;
         };
-    }]);;"use strict";
 
-angular.module("jtt_github", [])
+        this.getUserItemByJsonData = function (_item) {
+            var userObject = apingModels.getNew('user', this.getThisPlatformString());
+
+            angular.extend(userObject, {
+                username: _item.login, //NAME of of the user
+                score: _item.score,
+                user_id: _item.login, //ID of user (channel / page / account, ...)
+                user_url: _item.html_url, //url to user (channel / uploader / page / account, ...)
+                intern_id: _item.id, // INTERN ID of user (facebook id, instagram id, ...)
+                thumb_url: _item.avatar_url, // best case 200px (min)
+                img_url: _item.avatar_url, //preview image url (best case 700px)
+                native_url: _item.avatar_url, // best quality
+                type: _item.type,
+                bio: _item.bio || undefined,
+                blog_url: _item.blog || undefined,
+                company: _item.company || undefined,
+                email: _item.email || undefined,
+                created_at: _item.created_at || undefined,
+                updated_at: _item.updated_at || undefined,
+                followers: _item.followers || undefined,
+                following: _item.following || undefined,
+                hireable: _item.hireable || undefined,
+                location: _item.location || undefined,
+                fullname: _item.name || undefined,
+                public_gists: _item.public_gists || undefined,
+                public_repos: _item.public_repos || undefined,
+                source: _item, //different payload
+            });
+
+            return userObject;
+        };
+    }]);;'use strict';
+
+angular.module('jtt_github', [])
     .factory('githubFactory', ['$http', 'githubSearchDataService', function ($http, githubSearchDataService) {
 
         var githubFactory = {};
 
+        githubFactory.getUsers = function (_params) {
+            var searchData = githubSearchDataService.getNew('users', _params);
+            return $http({
+                method: 'GET',
+                url: searchData.url,
+                params: searchData.object,
+            });
+        };
+
         githubFactory.getUser = function (_params) {
-            var searchData = githubSearchDataService.getNew("user", _params);
+            var searchData = githubSearchDataService.getNew('user', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -233,7 +296,7 @@ angular.module("jtt_github", [])
         };
 
         githubFactory.getReposByUser = function (_params) {
-            var searchData = githubSearchDataService.getNew("reposByUser", _params);
+            var searchData = githubSearchDataService.getNew('reposByUser', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -242,7 +305,7 @@ angular.module("jtt_github", [])
         };
 
         githubFactory.getReposByName = function (_params) {
-            var searchData = githubSearchDataService.getNew("reposByName", _params);
+            var searchData = githubSearchDataService.getNew('reposByName', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -251,7 +314,7 @@ angular.module("jtt_github", [])
         };
 
         githubFactory.getRepoByUserAndName = function (_params) {
-            var searchData = githubSearchDataService.getNew("repoByUserAndName", _params);
+            var searchData = githubSearchDataService.getNew('repoByUserAndName', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -260,7 +323,7 @@ angular.module("jtt_github", [])
         };
 
         githubFactory.getEventsByUser = function (_params) {
-            var searchData = githubSearchDataService.getNew("eventsByUser", _params);
+            var searchData = githubSearchDataService.getNew('eventsByUser', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -269,7 +332,7 @@ angular.module("jtt_github", [])
         };
 
         githubFactory.getEventsFromRepoByUserAndName = function (_params) {
-            var searchData = githubSearchDataService.getNew("eventsFromRepoByUserAndName", _params);
+            var searchData = githubSearchDataService.getNew('eventsFromRepoByUserAndName', _params);
             return $http({
                 method: 'GET',
                 url: searchData.url,
@@ -280,8 +343,8 @@ angular.module("jtt_github", [])
         return githubFactory;
     }])
     .service('githubSearchDataService', function () {
-        this.getApiBaseUrl = function (_params) {
-            return "https://api.github.com/";
+        this.getApiBaseUrl = function () {
+            return 'https://api.github.com/';
         };
 
         this.fillDataInObjectByList = function (_object, _params, _list) {
@@ -298,7 +361,7 @@ angular.module("jtt_github", [])
         this.getNew = function (_type, _params) {
             var githubSearchData = {
                 object: {},
-                url: "",
+                url: '',
             };
 
             if (angular.isDefined(_params.per_page)) {
@@ -310,48 +373,55 @@ angular.module("jtt_github", [])
             }
 
             switch (_type) {
-                case "user":
+                case 'user':
                     githubSearchData.object.per_page = undefined;
                     githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, []);
-                    githubSearchData.url = this.getApiBaseUrl() + "users/" + _params.user;
+                    githubSearchData.url = this.getApiBaseUrl() + 'users/' + _params.user;
                     break;
 
-                case "reposByUser":
-                    githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
-                        'q', 'sort', 'order', 'page'
-                    ]);
-                    githubSearchData.url = this.getApiBaseUrl() + "users/" + _params.user + "/repos";
-                    break;
-
-                case "reposByName":
+                case 'users':
                     githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
                         'sort', 'order', 'page'
                     ]);
-                    githubSearchData.url = this.getApiBaseUrl() + "search/repositories?q=" + _params.q;
+                    githubSearchData.url = this.getApiBaseUrl() + 'search/users?q=' + _params.q;
                     break;
 
-                case "repoByUserAndName":
+                case 'reposByUser':
+                    githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
+                        'q', 'sort', 'order', 'page'
+                    ]);
+                    githubSearchData.url = this.getApiBaseUrl() + 'users/' + _params.user + '/repos';
+                    break;
+
+                case 'reposByName':
+                    githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
+                        'sort', 'order', 'page'
+                    ]);
+                    githubSearchData.url = this.getApiBaseUrl() + 'search/repositories?q=' + _params.q;
+                    break;
+
+                case 'repoByUserAndName':
                     githubSearchData.object = {
                         access_token: _params.access_token,
                     };
 
                     githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, []);
 
-                    githubSearchData.url = this.getApiBaseUrl() + "repos/" + _params.user + "/" + _params.repo;
+                    githubSearchData.url = this.getApiBaseUrl() + 'repos/' + _params.user + '/' + _params.repo;
                     break;
 
-                case "eventsByUser":
+                case 'eventsByUser':
                     githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
                         'q', 'sort', 'order', 'page'
                     ]);
-                    githubSearchData.url = this.getApiBaseUrl() + "users/" + _params.user + "/events";
+                    githubSearchData.url = this.getApiBaseUrl() + 'users/' + _params.user + '/events';
                     break;
 
-                case "eventsFromRepoByUserAndName":
+                case 'eventsFromRepoByUserAndName':
                     githubSearchData = this.fillDataInObjectByList(githubSearchData, _params, [
                         'q', 'sort', 'order', 'page'
                     ]);
-                    githubSearchData.url = this.getApiBaseUrl() + "repos/" + _params.user + "/" + _params.repo + "/events";
+                    githubSearchData.url = this.getApiBaseUrl() + 'repos/' + _params.user + '/' + _params.repo + '/events';
                     break;
             }
             return githubSearchData;

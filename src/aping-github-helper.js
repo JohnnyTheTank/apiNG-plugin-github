@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
-angular.module("jtt_aping_github")
+angular.module('jtt_aping_github')
     .service('apingGithubHelper', ['apingModels', 'apingTimeHelper', 'apingUtilityHelper', function (apingModels, apingTimeHelper, apingUtilityHelper) {
         this.getThisPlatformString = function () {
-            return "github";
+            return 'github';
         };
 
         this.getThisPlatformLink = function () {
-            return "https://github.com/";
+            return 'https://github.com/';
         };
 
         this.getObjectByJsonData = function (_data, _helperObject) {
@@ -19,7 +19,7 @@ angular.module("jtt_aping_github")
                 if (_data.data.constructor === Array) {
                     angular.forEach(_data.data, function (value, key) {
                         var tempResult;
-                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                             tempResult = value;
                         } else {
                             tempResult = _this.getItemByJsonData(value, _helperObject.model);
@@ -32,7 +32,7 @@ angular.module("jtt_aping_github")
                     if (_data.data.items) {
                         angular.forEach(_data.data.items, function (value, key) {
                             var tempResult;
-                            if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                            if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                                 tempResult = value;
                             } else {
                                 tempResult = _this.getItemByJsonData(value, _helperObject.model);
@@ -43,7 +43,7 @@ angular.module("jtt_aping_github")
                         });
                     } else {
                         var tempResult;
-                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === "true") {
+                        if (_helperObject.getNativeData === true || _helperObject.getNativeData === 'true') {
                             tempResult = _data.data;
                         } else {
                             tempResult = _this.getItemByJsonData(_data.data, _helperObject.model);
@@ -62,8 +62,12 @@ angular.module("jtt_aping_github")
             var returnObject = {};
             if (_item && _model) {
                 switch (_model) {
-                    case "repo":
+                    case 'repo':
                         returnObject = this.getRepoItemByJsonData(_item);
+                        break;
+
+                    case 'user':
+                        returnObject = this.getUserItemByJsonData(_item);
                         break;
 
                     default:
@@ -74,7 +78,7 @@ angular.module("jtt_aping_github")
         };
 
         this.getRepoItemByJsonData = function (_item) {
-            var repoObject = apingModels.getNew("repo", this.getThisPlatformString());
+            var repoObject = apingModels.getNew('repo', this.getThisPlatformString());
 
             angular.extend(repoObject, {
                 owner_name: _item.owner ? _item.owner.login : undefined,
@@ -106,5 +110,37 @@ angular.module("jtt_aping_github")
             });
 
             return repoObject;
+        };
+
+        this.getUserItemByJsonData = function (_item) {
+            var userObject = apingModels.getNew('user', this.getThisPlatformString());
+
+            angular.extend(userObject, {
+                username: _item.login, //NAME of of the user
+                score: _item.score,
+                user_id: _item.login, //ID of user (channel / page / account, ...)
+                user_url: _item.html_url, //url to user (channel / uploader / page / account, ...)
+                intern_id: _item.id, // INTERN ID of user (facebook id, instagram id, ...)
+                thumb_url: _item.avatar_url, // best case 200px (min)
+                img_url: _item.avatar_url, //preview image url (best case 700px)
+                native_url: _item.avatar_url, // best quality
+                type: _item.type,
+                bio: _item.bio || undefined,
+                blog_url: _item.blog || undefined,
+                company: _item.company || undefined,
+                email: _item.email || undefined,
+                created_at: _item.created_at || undefined,
+                updated_at: _item.updated_at || undefined,
+                followers: _item.followers || undefined,
+                following: _item.following || undefined,
+                hireable: _item.hireable || undefined,
+                location: _item.location || undefined,
+                fullname: _item.name || undefined,
+                public_gists: _item.public_gists || undefined,
+                public_repos: _item.public_repos || undefined,
+                source: _item, //different payload
+            });
+
+            return userObject;
         };
     }]);
